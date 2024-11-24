@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
                 <h1> Hello, World! </h1>
                 <h3> Auth Server </h3>
                 <p> Please init the login from Client Application </p>
+                <p> 
+                  <a href="http://localhost:5173">Open Client Application</a> 
+                </p>
             HTML
     ).html_safe
   end
