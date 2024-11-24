@@ -30,12 +30,13 @@ This project demonstrates a Single Sign-On (SSO) provider using OAuth2, built wi
 
 2. **Build and start the services**:
    ```bash
-   docker-compose up --build
+       docker-compose up --build
    ```
 
 3. **Seed the database**:
    Run the seed command to populate initial data, including registered applications:
    ```bash
+   docker-compose exec app rails db:migrate
    docker-compose exec app rails db:seed
    ```
 4. Run the application:
