@@ -50,6 +50,10 @@ group :development, :test do
   gem "faker"
 end
 
+group :test do
+  gem "rails-controller-testing"
+end
+
 group :development do
   gem "standard", require: false
 

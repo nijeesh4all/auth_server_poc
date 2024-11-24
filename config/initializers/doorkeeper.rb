@@ -7,10 +7,8 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
-    raise "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
-    # Put your resource owner authentication logic here.
-    # Example implementation:
-    #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
+      session["user_return_to"] = request.fullpath
+      current_user || redirect_to(new_user_session_url)
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
@@ -176,7 +174,7 @@ Doorkeeper.configure do
   # Require non-confidential clients to use PKCE when using an authorization code
   # to obtain an access_token (disabled by default)
   #
-  # force_pkce
+  force_pkce
 
   # Hash access and refresh tokens before persisting them.
   # This will disable the possibility to use +reuse_access_token+
@@ -244,7 +242,7 @@ Doorkeeper.configure do
   # For more information go to
   # https://doorkeeper.gitbook.io/guides/ruby-on-rails/scopes
   #
-  # default_scopes  :public
+  default_scopes  :public
   # optional_scopes :write, :update
 
   # Allows to restrict only certain scopes for grant_type.
@@ -367,7 +365,7 @@ Doorkeeper.configure do
   #   https://datatracker.ietf.org/doc/html/rfc6819#section-4.4.2
   #   https://datatracker.ietf.org/doc/html/rfc6819#section-4.4.3
   #
-  # grant_flows %w[authorization_code client_credentials]
+  grant_flows %w[authorization_code]
 
   # Allows to customize OAuth grant flows that +each+ application support.
   # You can configure a custom block (or use a class respond to `#call`) that must
@@ -465,9 +463,9 @@ Doorkeeper.configure do
   # so that the user skips the authorization step.
   # For example if dealing with a trusted application.
   #
-  # skip_authorization do |resource_owner, client|
-  #   client.superapp? or resource_owner.admin?
-  # end
+  skip_authorization do |resource_owner, client|
+    true
+  end
 
   # Configure custom constraints for the Token Introspection request.
   # By default this configuration option allows to introspect a token by another
