@@ -18,6 +18,12 @@
   </head>
 
   <body>
+    <div class="fixed top-10 inset-x-0 mx-auto z-10">
+        <%= notice  %>
+        <%= alert %>
+    </div>
+
+    <%= render partial: "devise/shared/error_messages" %>
     <%= yield %>
   </body>
 </html>
